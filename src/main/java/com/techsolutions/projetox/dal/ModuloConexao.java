@@ -21,7 +21,7 @@ public class ModuloConexao {
         
         String driver = "com.mysql.cj.jdbc.Driver";
         
-        String url = "jdbc:mysql://localhost:3306/dbinfox";
+        String url = "jdbc:mysql://localhost:3306/dbinfox?useSSL=false";
                 
         String user = "root";
                 
