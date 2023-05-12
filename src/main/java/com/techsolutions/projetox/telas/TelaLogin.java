@@ -4,6 +4,7 @@
  */
 package com.techsolutions.projetox.telas;
 import com.techsolutions.projetox.dal.ModuloConexao;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,10 +34,27 @@ public class TelaLogin extends javax.swing.JFrame {
             rs = pst.executeQuery();
             
             if(rs.next()){
-                TelaPrincipal principal = new TelaPrincipal();
-                principal.setVisible(true);
-                this.dispose();
-                conexao.close();
+                // obtém o conteúdo do campo perfil da tabela usuário
+                String perfil = rs.getString(6);
+                System.out.println(perfil);
+                
+                // faz o tratamento do usuário
+                if (perfil.equals("admin")){
+                // exibe o conteúdo em tela
+                    TelaPrincipal principal = new TelaPrincipal();
+                    principal.setVisible(true);
+                    TelaPrincipal.MenRelSer.setEnabled(true);
+                    TelaPrincipal.MenCadUsu.setEnabled(true);
+                    TelaPrincipal.lblUsuario.setText(rs.getString(2));
+                    TelaPrincipal.lblUsuario.setForeground(Color.red);
+                    this.dispose();
+                    conexao.close();
+                }else{
+                    TelaPrincipal principal = new TelaPrincipal();
+                    principal.setVisible(true);
+                    this.dispose();
+                    conexao.close();
+                }
             }else{
                 JOptionPane.showMessageDialog(null, "usuário e/ou senha inválido(s)");
             }
