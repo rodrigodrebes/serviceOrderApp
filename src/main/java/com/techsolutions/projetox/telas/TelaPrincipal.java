@@ -69,7 +69,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rodrigo\\Downloads\\9069616_big_x_icon.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rodrigo\\Desktop\\icones\\9069616_big_x_icon.png")); // NOI18N
 
         lblUsuario.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         lblUsuario.setText("Usuário");
