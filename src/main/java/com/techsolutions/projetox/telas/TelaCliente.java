@@ -161,9 +161,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         txtCliFone.setText(null);
         txtCliEmail.setText(null);
         ((DefaultTableModel) tblClientes.getModel()).setRowCount(0);
-    }
-
-    ;
+    };
     
     
     
@@ -220,7 +218,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 10)); // NOI18N
         jLabel5.setText("* Campos Obrigatórios");
 
-        btnAdicionar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rodrigo\\Desktop\\icones\\create.png")); // NOI18N
+        btnAdicionar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rodrigo\\Desktop\\icones\\clientadd.png")); // NOI18N
         btnAdicionar.setToolTipText("Adicionar");
         btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -228,7 +226,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        btnAlterar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rodrigo\\Desktop\\icones\\update.png")); // NOI18N
+        btnAlterar.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rodrigo\\Desktop\\icones\\clientedit.png")); // NOI18N
         btnAlterar.setToolTipText("Editar");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -236,7 +234,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        btnRemover.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rodrigo\\Desktop\\icones\\delete.png")); // NOI18N
+        btnRemover.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rodrigo\\Desktop\\icones\\clientremove.png")); // NOI18N
         btnRemover.setToolTipText("Remover");
         btnRemover.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,7 +248,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rodrigo\\Desktop\\icones\\search2.png")); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rodrigo\\Desktop\\icones\\clientsearch.png")); // NOI18N
 
         tblClientes = new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int colIndex){
@@ -293,36 +291,37 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtCliPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCliPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel1))
-                        .addGap(36, 36, 36)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCliNome, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel5)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel1))
+                            .addGap(36, 36, 36)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(3, 3, 3)
-                                    .addComponent(btnAdicionar)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnAlterar)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btnRemover))
-                                .addComponent(txtCliEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                                .addComponent(txtCliEndereco)
                                 .addComponent(txtCliEmail)
                                 .addComponent(txtCliFone, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtCliId, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(120, Short.MAX_VALUE))
+                                .addComponent(txtCliNome, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtCliId, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(83, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAdicionar)
+                .addGap(18, 18, 18)
+                .addComponent(btnAlterar)
+                .addGap(18, 18, 18)
+                .addComponent(btnRemover)
+                .addGap(164, 164, 164))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -361,7 +360,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                     .addComponent(btnAlterar)
                     .addComponent(btnAdicionar)
                     .addComponent(btnRemover))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
