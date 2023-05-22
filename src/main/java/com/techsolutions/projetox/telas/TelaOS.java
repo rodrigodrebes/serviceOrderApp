@@ -1,18 +1,23 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package com.techsolutions.projetox.telas;
 
 import java.sql.*;
 import com.techsolutions.projetox.dal.ModuloConexao;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import net.proteanit.sql.DbUtils;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
- * @author Rodrigo
+ * @author Rodrigo Drebes Soares
  */
 public class TelaOS extends javax.swing.JInternalFrame {
 
@@ -20,12 +25,8 @@ public class TelaOS extends javax.swing.JInternalFrame {
     PreparedStatement pst = null;
     ResultSet rs = null;
 
-    // cria uma variável para armazenar um texto de acordo com o radio button selecionado
     private String tipo;
 
-    /**
-     * Creates new form TelaOS
-     */
     public TelaOS() {
         initComponents();
         conexao = ModuloConexao.conector();
@@ -55,7 +56,6 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
     }
 
-    // método para cadastar uma ordem de serviço
     private void emitir_os() {
         String sql = "INSERT INTO tbos(tipo, situacao, equipamento, defeito, servico, tecnico, valor, idcli) values (?,?,?,?,?,?,?,?)";
 
@@ -70,14 +70,14 @@ public class TelaOS extends javax.swing.JInternalFrame {
             pst.setString(7, txtOsValor.getText().replace(",", "."));
             pst.setString(8, txtCliId.getText());
 
-            //validação dos campos
             if ((txtCliId.getText().isEmpty()) || (txtOsEquip.getText().isEmpty()) || (txtOsDef.getText().isEmpty()) || cboOsSit.getSelectedItem().equals(" ")) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
             } else {
                 int adicionado = pst.executeUpdate();
                 if (adicionado > 0) {
                     JOptionPane.showMessageDialog(null, "Ordem de Serviço emitida com sucesso!");
-                    
+
+                    recuperarOs();
                     btnOsAdicionar.setEnabled(false);
                     btnOsPesquisar.setEnabled(false);
                     btnOsImprimir.setEnabled(true);
@@ -89,7 +89,6 @@ public class TelaOS extends javax.swing.JInternalFrame {
         }
     }
 
-    // método para pesquisar OS
     private void pesquisar_os() {
         String num_os = JOptionPane.showInputDialog("Número da OS");
         String sql = "SELECT os,date_format(data_os, '%d/%m/%y - %H:%i'), tipo, situacao, equipamento, defeito, servico, tecnico, valor, idcli FROM tbos where os = " + num_os;
@@ -119,12 +118,11 @@ public class TelaOS extends javax.swing.JInternalFrame {
                 txtOsValor.setText(rs.getString(9));
                 txtCliId.setText(rs.getString(10));
 
-                //evitando problemas
                 btnOsAdicionar.setEnabled(false);
                 btnOsPesquisar.setEnabled(false);
                 txtCliPesquisar.setEditable(false);
                 tblClientes.setVisible(false);
-                
+
                 btnOsAlterar.setEnabled(true);
                 btnOsExcluir.setEnabled(true);
                 btnOsImprimir.setEnabled(true);
@@ -152,7 +150,6 @@ public class TelaOS extends javax.swing.JInternalFrame {
             pst.setString(7, txtOsValor.getText().replace(",", "."));
             pst.setString(8, txtOs.getText());
 
-            //validação dos campos
             if ((txtCliId.getText().isEmpty()) || (txtOsEquip.getText().isEmpty()) || (txtOsDef.getText().isEmpty()) || cboOsSit.getSelectedItem().equals(" ")) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios");
             } else {
@@ -195,9 +192,44 @@ public class TelaOS extends javax.swing.JInternalFrame {
 
     }
 
-    //método para limpar campos e inicializar objetos
+    private void imprimir_os() {
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirma a impressão dessa Ordem de Serviço?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+
+            try {
+                Map parametros = new HashMap();
+                parametros.put("os", Integer.parseInt(txtOs.getText()));
+
+                File reportFile = new File("C:\\Users\\Rodrigo\\JaspersoftWorkspace\\MyReports\\os.jrxml");
+                JasperReport relatorio = JasperCompileManager.compileReport(new FileInputStream(reportFile));
+
+                JasperPrint print = JasperFillManager.fillReport(relatorio, parametros, conexao);
+
+                JasperViewer.viewReport(print, false);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
+
+    private void recuperarOs() {
+        String sql = "select max(os) from tbos";
+
+        try {
+            pst = conexao.prepareStatement(sql);
+            rs = pst.executeQuery();
+            if (rs.next()) {
+                txtOs.setText(rs.getString(1));
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }
+
     public void limpar() {
-        // limpa os campos
+
         txtOs.setText(null);
         txtData.setText(null);
         txtCliPesquisar.setText(null);
@@ -210,23 +242,16 @@ public class TelaOS extends javax.swing.JInternalFrame {
         txtOsTec.setText(null);
         txtOsValor.setText(null);
 
-        // habilitar os objetos
         btnOsAdicionar.setEnabled(true);
         btnOsPesquisar.setEnabled(true);
         txtCliPesquisar.setEnabled(true);
         tblClientes.setVisible(true);
 
-        // desabilitar os botões
         btnOsAdicionar.setEnabled(false);
         btnOsExcluir.setEnabled(false);
         btnOsImprimir.setEnabled(false);
     }
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -479,6 +504,11 @@ public class TelaOS extends javax.swing.JInternalFrame {
         btnOsImprimir.setToolTipText("Imprimir OS");
         btnOsImprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnOsImprimir.setEnabled(false);
+        btnOsImprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOsImprimirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -574,56 +604,58 @@ public class TelaOS extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCliPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCliPesquisarActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtCliPesquisarActionPerformed
 
     private void txtCliPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCliPesquisarKeyReleased
-        // chama o método pesquisar cliente
+
         pesquisar_cliente();
     }//GEN-LAST:event_txtCliPesquisarKeyReleased
 
     private void tblClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblClientesMouseClicked
-        // chamando o método setar_campos:
 
         setar_campos();
     }//GEN-LAST:event_tblClientesMouseClicked
 
     private void rbtOrcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtOrcActionPerformed
-        // atribuindo um texto a variável tipo se selecionado
+
         tipo = "Orçamento";
     }//GEN-LAST:event_rbtOrcActionPerformed
 
     private void rbtOsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtOsActionPerformed
-        // atribuindo um texto a variável tipo se selecionado
+
         tipo = "OS";
     }//GEN-LAST:event_rbtOsActionPerformed
 
     private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
-        // ao abrir o form, marcar o radio button ORÇAMENTO;
+
         rbtOrc.setSelected(true);
         tipo = "Orçamento";
     }//GEN-LAST:event_formInternalFrameOpened
 
     private void btnOsAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsAdicionarActionPerformed
-        // chamar o método emitir_os();
+
         emitir_os();
     }//GEN-LAST:event_btnOsAdicionarActionPerformed
 
     private void btnOsPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsPesquisarActionPerformed
-        // chama o método pesquisar_os;
+
         pesquisar_os();
     }//GEN-LAST:event_btnOsPesquisarActionPerformed
 
     private void btnOsAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsAlterarActionPerformed
-        // chama o método de alteração
+
         alterar_os();
     }//GEN-LAST:event_btnOsAlterarActionPerformed
 
     private void btnOsExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsExcluirActionPerformed
-        // chama o método de exclusão
 
         excluir_os();
     }//GEN-LAST:event_btnOsExcluirActionPerformed
+
+    private void btnOsImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOsImprimirActionPerformed
+        imprimir_os();
+    }//GEN-LAST:event_btnOsImprimirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

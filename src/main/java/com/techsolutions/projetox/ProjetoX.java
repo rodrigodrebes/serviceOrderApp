@@ -1,8 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
 
 package com.techsolutions.projetox;
+
+import com.techsolutions.projetox.dal.ModuloConexao;
+import com.techsolutions.projetox.telas.TelaLogin;
+import java.sql.Connection;
 
 /**
  *
@@ -11,6 +12,16 @@ package com.techsolutions.projetox;
 public class ProjetoX {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        
+        Connection conexao = ModuloConexao.conector();
+ 
+    
+         java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            
+             new TelaLogin().setVisible(true);
+        }
+    });
+        
     }
 }

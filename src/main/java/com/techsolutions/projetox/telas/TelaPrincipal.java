@@ -47,6 +47,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         lblData = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         Menu = new javax.swing.JMenuBar();
         MenCad = new javax.swing.JMenu();
         MenCadCli = new javax.swing.JMenuItem();
@@ -94,6 +95,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel2.setText("Usuário logado");
 
         jLabel3.setText("Data");
+
+        jLabel4.setIcon(new javax.swing.ImageIcon("C:\\Users\\Rodrigo\\Desktop\\icones\\logo2.png")); // NOI18N
+        jLabel4.setText("jLabel4");
 
         MenCad.setText("Cadastro");
 
@@ -145,6 +149,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         MenRelSer.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.ALT_DOWN_MASK));
         MenRelSer.setText("Serviços");
         MenRelSer.setEnabled(false);
+        MenRelSer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenRelSerActionPerformed(evt);
+            }
+        });
         MenRel.add(MenRelSer);
 
         Menu.add(MenRel);
@@ -188,8 +197,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(lblUsuario)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(lblData))
+                    .addComponent(lblData)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -204,7 +214,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblData)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 318, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 184, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -262,7 +274,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_MenCadUsuActionPerformed
 
     private void MenRelCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenRelCliActionPerformed
-        int confirma = JOptionPane.showConfirmDialog(null, "Confirma a impressão dese relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
+        int confirma = JOptionPane.showConfirmDialog(null, "Confirma a emissão desse relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
         if (confirma == JOptionPane.YES_OPTION) {
 
             try {
@@ -284,6 +296,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void MenRelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenRelActionPerformed
 
     }//GEN-LAST:event_MenRelActionPerformed
+
+    private void MenRelSerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenRelSerActionPerformed
+          int confirma = JOptionPane.showConfirmDialog(null, "Confirma a emissão desse relatório?", "Atenção", JOptionPane.YES_NO_OPTION);
+        if (confirma == JOptionPane.YES_OPTION) {
+
+            try {
+                Map parametros = new HashMap();
+
+                File reportFile = new File("C:\\Users\\Rodrigo\\JaspersoftWorkspace\\MyReports\\servicos_cliente.jrxml");
+                JasperReport relatorio = JasperCompileManager.compileReport(new FileInputStream(reportFile));
+
+                JasperPrint print = JasperFillManager.fillReport(relatorio, parametros, conexao);
+
+                JasperViewer.viewReport(print, false);
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }//GEN-LAST:event_MenRelSerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -337,6 +369,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lblData;
     public static javax.swing.JLabel lblUsuario;
     // End of variables declaration//GEN-END:variables
