@@ -21,11 +21,11 @@ public class ModuloConexao {
         
         String driver = "com.mysql.cj.jdbc.Driver";
         
-        String url = "jdbc:mysql://localhost:3306/dbinfox?useSSL=false";
+        String url = "jdbc:mysql://localhost:3306/dbinfox";
                 
-        String user = "root";
+        String user = "dba";
                 
-        String password = "senha";
+        String password = "12345";
                 
         try{
     Class.forName(driver);

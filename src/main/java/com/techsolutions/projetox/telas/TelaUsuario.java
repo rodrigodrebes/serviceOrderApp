@@ -55,18 +55,17 @@ public class TelaUsuario extends javax.swing.JInternalFrame {
 
     // método create
     private void adicionar() {
-        String sql = "INSERT INTO tbusuarios(iduser, usuario, fone, login, senha, perfil) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO tbusuarios(usuario, fone, login, senha, perfil) VALUES (?,?,?,?,?)";
         try {
             pst = conexao.prepareStatement(sql);
-            pst.setString(1, txtUsuId.getText());
-            pst.setString(2, txtUsuNome.getText());
-            pst.setString(3, txtUsuFone.getText());
-            pst.setString(4, txtUsuLogin.getText());
-            pst.setString(5, txtUsuSenha.getText());
-            pst.setString(6, cboUsuPerfil.getSelectedItem().toString());
+            pst.setString(1, txtUsuNome.getText());
+            pst.setString(2, txtUsuFone.getText());
+            pst.setString(3, txtUsuLogin.getText());
+            pst.setString(4, txtUsuSenha.getText());
+            pst.setString(5, cboUsuPerfil.getSelectedItem().toString());
 
 // validação dos campos
-            if ((txtUsuId.getText().isEmpty()) || (txtUsuNome.getText().isEmpty()) || (txtUsuLogin.getText().isEmpty()) || (txtUsuSenha.getText().isEmpty())) {
+            if ((txtUsuNome.getText().isEmpty()) || (txtUsuLogin.getText().isEmpty()) || (txtUsuSenha.getText().isEmpty())) {
                 JOptionPane.showMessageDialog(null, "Preencha todos os campos obrigatórios!");
 
             } else {

@@ -513,7 +513,6 @@ public class TelaOS extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtOsValor, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnOsAdicionar)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnOsAlterar)
@@ -568,10 +567,10 @@ public class TelaOS extends javax.swing.JInternalFrame {
                     .addComponent(btnOsAlterar)
                     .addComponent(btnOsExcluir)
                     .addComponent(btnOsImprimir))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
-        setBounds(0, 0, 616, 480);
+        setBounds(0, 0, 666, 501);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCliPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCliPesquisarActionPerformed
