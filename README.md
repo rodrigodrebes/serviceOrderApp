@@ -1,6 +1,7 @@
-# serviceOrderApp
+# Service-Order-App
 
 Este é um aplicativo desktop feito em Java, com integração à banco de dados MySQL para gerenciar ordens de serviço. 
+
 Ele permite que os usuários criem, editem, e acompanhem ordens de serviço de uma maneira simples e intuitiva.
 Permite, também, a impressão de relatórios de ordens de serviço e de Clientes.
 
